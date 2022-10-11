@@ -18,6 +18,12 @@ describe('Draggable', () => {
   });
 
   function checkTranslation(x, y) {
+    if (x === 0 && y === 0) {
+      return expect(item.style.transform).to.be.oneOf([
+        'translate(' + x + 'px, ' + y + 'px)',
+        'translate(0px)',
+      ]);
+    }
     expect(item.style.transform).to.equal('translate(' + x + 'px, ' + y + 'px)');
   }
 
@@ -38,7 +44,6 @@ describe('Draggable', () => {
     it('should not translate the element initially', () => {
       Draggable.on(item);
       checkTranslation(0, 0);
-      expect(item.style.transform.match(/translate\(0px(, 0px)*\)/)).to.not.be.undefined;
     });
 
     it('should keep the previous position', () => {
